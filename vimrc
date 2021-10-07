@@ -191,7 +191,8 @@ au BufNewFile,BufRead *.launch set filetype=xml
 
 let g:lisp_rainbow = 1
 
-"Lauguage Server
+" Lauguage Server
+" Vim version should be more than 8.1
 call plug#begin('~/.vim/plugged')
 Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
