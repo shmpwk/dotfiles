@@ -190,3 +190,36 @@ au BufNewFile,BufRead *.launch set filetype=xml
 " highlight DiffText   cterm=bold ctermfg=10 ctermbg=21
 
 let g:lisp_rainbow = 1
+
+"Lauguage Server
+call plug#begin('~/.vim/plugged')
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'mattn/vim-lsp-icons'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+call plug#end()
+
+"from Ishida-san
+let g:lsp_diagnostics_enabled = 1 " enable diagnostics support
+let g:lsp_diagnostics_echo_cursor = 1 " show error message
+let g:lsp_diagnostics_highlights_enabled = 1
+let g:lsp_document_code_action_signs_enabled = 0
+let g:lsp_document_highlight_enabled = 1
+let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_auto_completeopt = 0
+let g:asyncomplete_popup_delay = 10
+au BufNewFile,BufRead * call lsp#disable_diagnostics_for_buffer() " lsp diag off by default
+command LSPDIAG call lsp#enable_diagnostics_for_buffer()
+command LSPNODIAG call lsp#disable_diagnostics_for_buffer()
+
+cnoreabbrev lspdiag LSPDIAG
+cnoreabbrev lspnodiag LSPNODIAG
+cnoreabbrev lspdef LspDefinition
+cnoreabbrev lspdec LspDeclaration
+cnoreabbrev lspimpl LspImplementation
+cnoreabbrev lspref LspReferences
+cnoreabbrev lsprename LspRename
+cnoreabbrev lsphover LspReferences
