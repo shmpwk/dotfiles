@@ -225,3 +225,10 @@ cnoreabbrev lspimpl LspImplementation
 cnoreabbrev lspref LspReferences
 cnoreabbrev lsprename LspRename
 cnoreabbrev lsphover LspReferences
+
+"tag jump 
+"To do: In this version, we should execute `ctags -R` in every project to make tags file. 
+"       So I wonder it can automatically work.
+nnoremap <C-h> :vsp<CR> :exe("tjump ".expand('<cword>'))<CR>
+nnoremap <C-k> :split<CR> :exe("tjump ".expand('<cword>'))<CR>
+set tags=./tags;,tags;
