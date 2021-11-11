@@ -31,6 +31,7 @@
 set number
 set laststatus=2
 set clipboard=unnamedplus ",autoselect,unnamed,
+set clipboard+=unnamed
 set background =dark
 
 " tab set
