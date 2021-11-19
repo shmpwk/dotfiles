@@ -1,0 +1,9 @@
+[user]
+	email = wakabayashi@jsk.imi.i.u-tokyo.ac.jp
+[core]
+	excludesFile = /home/shmpwk/.gitignore_global
+[credential]
+	helper = cache --timeout=3600
+[alias]
+	conflicts = !git ls-files -u | cut -f 2 | sort -u
+	tree = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
