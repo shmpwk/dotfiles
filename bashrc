@@ -176,6 +176,9 @@ _replace_by_history() {
 }
 bind -x '"\C-r": _replace_by_history'
 
+# catkin source 
+source `catkin locate --shell-verbs`
+
 #mujoco
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/shmpwk/.mujoco/mujoco200/bin
 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGLEW.so
@@ -194,4 +197,3 @@ export EDITOR=vim
 #when connecting real pr2
 #rossetip
 #rossetmaster pr1040
-source ~/our_ws/devel/setup.bash
