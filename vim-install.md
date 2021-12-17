@@ -12,4 +12,4 @@ sudo apt update
 sudo apt install vim
 sudo apt install vim-gnome
 ```
-- open vim file and execute `:PlugInstall` and `:CocInstall`
+- open vim file and execute `:PlugInstall` 
