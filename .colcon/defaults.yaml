@@ -1,0 +1,11 @@
+{
+    "build": {
+        "symlink-install": true,
+        "merge-install": true,
+        "event-handlers": ["console_cohesion+"]
+    },
+    "test": {
+        "merge-install": true,
+        "event-handlers": ["console_cohesion+"]
+    }
+}
