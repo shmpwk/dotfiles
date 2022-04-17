@@ -16,8 +16,8 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000000
-HISTFILESIZE=2000000
+HISTSIZE=1000
+HISTFILESIZE=2000
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -57,10 +57,10 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 # new
+# show git branch 
 function parse_git_branch {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ [\1]/'
 }
-
 if [ "$color_prompt" = yes ]; then
     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\[\033[01;31m\]$(parse_git_branch)\[\033[00m\]\n\$ '
 else
@@ -69,12 +69,12 @@ fi
 unset color_prompt force_color_prompt
 
 # old
-# if [ "$color_prompt" = yes ]; then
-#     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-# else
-#     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-# fi
-# unset color_prompt force_color_prompt
+#if [ "$color_prompt" = yes ]; then
+#    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+#else
+#    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+#fi
+#unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -84,7 +84,6 @@ xterm*|rxvt*)
 *)
     ;;
 esac
-
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -106,12 +105,6 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-cdls ()
-{
-    \cd "$@" && ls
-}
-alias cd="cdls"
-
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -125,14 +118,6 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
-alias G='grep'
-alias C='xsel --input --clipboard'
-alias lv='less'
-
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -144,29 +129,17 @@ if ! shopt -oq posix; then
   fi
 fi
 
-
-source /opt/ros/melodic/setup.bash
-
-source ~/my_ws/devel/setup.bash
-#source $HOME/catkin_ws/devel/setup.bash
-
-alias open="xdg-open"
-
-
-# CUDA
-export CUDA_ROOT=/usr/local/cuda
-export PATH=$PATH:$CUDA_ROOT/bin
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_ROOT/lib64
-export CFLAGS=-I$CUDA_ROOT/include
-export LDFLAGS=-L$CUDA_ROOT/lib64
-
-
-# If you use GPS 
-#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/shmpwk/gps/build/lib
-##export LD_LIBRARY_PATH=/home/shmpwk/gps/build/lib
-#export PYTHONPATH=$PYTHONPATH:/home/shmpwk/gps/build/lib
-##export PYTHONPATH=/home/shmpwk/gps/build/lib
-#export ROS_PACKAGE_PATH=$ROS_PACKAGE_PATH:/home/shmpwk/gps:/home/shmpwk/gps/src/gps_agent_pkg
+function kill_autoware () {
+  	pkill ros2
+  	pkill rviz2
+  	pkill aggregator_node
+  	ps aux | grep python3 | grep ros2 | grep -v grep | awk '{ print "kill ", $2 }' | sh
+  	ps aux | grep python3 | grep rqt_reconfigure | grep -v grep | awk '{ print "kill ", $2 }' | sh
+  	ps aux | grep component_container | grep -v grep | awk '{ print "kill ", $2 }' | sh
+  	ps aux | grep robot_state_publisher | grep -v grep | awk '{ print "kill ", $2 }' | sh
+  	ps aux | grep topic_tools/relay | grep -v grep | awk '{ print "kill ", $2 }' | sh
+ 	ps aux | grep "ros-args" | grep -v grep | awk '{ print "kill ", $2 }' | sh
+}
 
 # history search bindkey for percol
 _replace_by_history() {
@@ -176,24 +149,27 @@ _replace_by_history() {
 }
 bind -x '"\C-r": _replace_by_history'
 
-# catkin source 
-source `catkin locate --shell-verbs`
+# roscd 
+source /usr/share/colcon_cd/function/colcon_cd.sh
+export _colcon_cd_root=~/workspace
 
-#mujoco
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/shmpwk/.mujoco/mujoco200/bin
-export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libGLEW.so
+export PATH="/usr/local/cuda/bin:$PATH"
+export LD_LIBRARY_PATH="/usr/local/cuda/lib64:$LD_LIBRARY_PATH"
+source /opt/ros/galactic/setup.bash
+export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
-#mujocopy
-export MUJOCO_PY_MJKEY_PATH=~/.mujoco/mjkey.txt
-export MUJOCO_PY_MJPRO_PATH=~/.mujoco/mjpro200
-export PYTHONPATH="~/gym:$PYTHONPATH"
+# ROS2 custom setup
+#export RCUTILS_COLORIZED_OUTPUT=1
+#export RCUTILS_CONSOLE_OUTPUT_FORMAT="[{severity} {time}] [{name}]: {message} ({function_name}() at {file_name}:{line_number})"
+#export ROS_LOCALHOST_ONLY=1
+## Replace X with the Domain ID you want to use
+## Domain ID should be a number in range [0, 101] (inclusive)
+#export ROS_DOMAIN_ID=X
 
-#language
-export LC_ALL="en_US.UTF-8"
-export LC_CTYPE="en_US.UTF-8"
+# From miyake san
+export ROS_LOCALHOST_ONLY=1
+export RCUTILS_COLORIZED_OUTPUT=1
+export RCUTILS_CONSOLE_OUTPUT_FORMAT="[{severity} {time}] [{name}]: {message}"
 
-#editor
-export EDITOR=vim
-#when connecting real pr2
-#rossetip
-#rossetmaster pr1040
+# From shima san
+export COLCON_DEFAULTS_FILE="$HOME/.colcon/defaults.yaml"
