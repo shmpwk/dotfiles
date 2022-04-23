@@ -1,0 +1,25 @@
+{
+    "configurations": [
+      {
+        "name": "ROS",
+        "browse": {
+          "databaseFilename": "",
+          "limitSymbolsToIncludedHeaders": true
+        },
+        "includePath": [
+          "${workspaceFolder}/src/**",
+          "${workspaceFolder}/install/**",
+          "/opt/ros/galactic/include/**",
+          "/usr/local/include/**",
+          "/usr/include/**"
+        ],
+        "defines": [],
+        "intelliSenseMode": "gcc-x64",
+        "compilerPath": "/usr/bin/gcc",
+        "cStandard": "c11",
+        "cppStandard": "c++17",
+        "compileCommands": "${workspaceFolder}/build/compile_commands.json"
+      }
+    ],
+    "version": 4
+  }
