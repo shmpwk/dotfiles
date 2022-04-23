@@ -1,0 +1,62 @@
+{
+    // Editor
+    "editor.formatOnSave": true,
+    // Code Spell Checker
+    "cSpell.languageSettings": [
+        {
+            "languageId": "c,cpp,python",
+            "allowCompoundWords": false
+        }
+    ],
+    // [ament_pep257]
+    "python.formatting.provider": "autopep8",
+    "python.formatting.autopep8Args": [
+        "--max-line-length=99"
+    ],
+    // [ament_flake8]
+    // See /opt/ros/galactic/lib/python3.8/site-packages/ament_flake8/configuration/ament_flake8.ini
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--extend-ignore=C816,D100,D101,D102,D103,D104,D105,D106,D107,D203,D212,D404,I202",
+        "--import-order-style=google",
+        "--max-line-length=99",
+        "--show-source",
+        "--statistics"
+    ],
+    "python.sortImports.args": [
+        "--settings-path",
+        "${workspaceFolder}/.isort.cfg"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+    // [ament_uncrustify]
+    "uncrustify.useReplaceOption": true,
+    "uncrustify.configPath.linux": "/opt/ros/galactic/lib/python3.8/site-packages/ament_uncrustify/configuration/ament_code_style.cfg",
+    "[cpp]": {
+        "editor.defaultFormatter": "zachflower.uncrustify"
+    },
+    // [ament_cpplint]
+    "cpplint.cpplintPath": "./cpplint",
+    "cpplint.lineLength": 100,
+    "cpplint.filters": [
+        "-build/c++11",
+        "-runtime/references",
+        "-whitespace/braces",
+        "-whitespace/indent",
+        "-whitespace/parens",
+        "-whitespace/semicolon"
+    ],
+    "cpplint.verbose": 1,
+    "python.autoComplete.extraPaths": [
+        "/home/shumpeiwakabayashi/workspace/autoware/install/lib/python3.8/site-packages",
+        "/home/shumpeiwakabayashi/scenario_simulator_ws/build/scenario_test_runner",
+        "/home/shumpeiwakabayashi/scenario_simulator_ws/build/openscenario_utility",
+        "/home/shumpeiwakabayashi/scenario_simulator_ws/install/lib/python3.8/site-packages",
+        "/opt/ros/galactic/lib/python3.8/site-packages"
+    ],
+    // [git]
+    "git.autofetch": true,
+    "git.alwaysSignOff": true,
+    "git-graph.fetchAndPrune": true
+}
