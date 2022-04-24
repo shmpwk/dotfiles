@@ -1,9 +1,45 @@
 [user]
-	email = wakabayashi@jsk.imi.i.u-tokyo.ac.jp
-[core]
-	excludesFile = /home/shmpwk/.gitignore_global
-[credential]
-	helper = cache --timeout=3600
+	email = shumpei.wakabayashi@tier4.jp
+	name = Shumpei Wakabayashi
+[merge]
+	tool = vimdiff
+[diff]
+	tool = vimdiff
+	renames = true
+	algorithm = histogram
+	colorMoved = default
 [alias]
-	conflicts = !git ls-files -u | cut -f 2 | sort -u
-	tree = log --graph --all --format=\"%x09%C(cyan bold)%an%Creset%x09%C(yellow)%h%Creset %C(magenta reverse)%d%Creset %s\"
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	bw = browse
+	pr = pull-request
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ad) %C(bold blue)<%an>%Creset' --abbrev-commit --date=iso
+	pl = !hub browse -- pulls
+	is = !hub browse -- issues
+[filter "media"]
+	clean = git-media-clean %f
+	smudge = git-media-smudge %f
+[core]
+	excludesfile = ~/.gitignore_global
+	pager = diff-so-fancy | less
+[merge]
+	conflictstyle = diff3
+[http]
+	sslVerify = false
+[rerere]
+	enabled = true
+[branch]
+	autosetupmerge = always
+[pull]
+	rebase = true
+[push]
+	default = current
+[pager]
+	status = false
+	branch = false
+[credential]
+	helper = store
+[init]
+	defaultBranch = main

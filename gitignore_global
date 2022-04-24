@@ -1,0 +1,15 @@
+.DS_Store
+
+dist/
+
+.ipynb_checkpoints/
+*.egg-info/
+__pycache__/
+
+.anaconda3/
+.in
+.out
+,*
+nohup.*.out
+
+.nvimlog
