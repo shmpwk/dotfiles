@@ -1,0 +1,2 @@
+Installation
+```bash sync.sh```

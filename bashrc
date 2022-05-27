@@ -173,3 +173,16 @@ export RCUTILS_CONSOLE_OUTPUT_FORMAT="[{severity} {time}] [{name}]: {message}"
 
 # From shima san
 export COLCON_DEFAULTS_FILE="$HOME/.colcon/defaults.yaml"
+
+function update_autoware () {
+	cd ~/workspace/autoware
+	git pull
+	vcs import src < autoware.repos
+	vcs pull src
+	source /opt/ros/galactic/setup.bash
+	rosdep install -y --from-paths src --ignore-src --rosdistro $ROS_DISTRO
+	colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release
+	source ~/workspace/autoware/install/setup.bash
+}
+
+
