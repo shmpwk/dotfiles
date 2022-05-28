@@ -28,6 +28,8 @@
 	conflictstyle = diff3
 [http]
 	sslVerify = false
+[url "git@github.com:"]
+  insteadOf = https://github.com/
 [rerere]
 	enabled = true
 [branch]
