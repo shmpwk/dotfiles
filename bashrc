@@ -174,6 +174,12 @@ export RCUTILS_CONSOLE_OUTPUT_FORMAT="[{severity} {time}] [{name}]: {message}"
 # From shima san
 export COLCON_DEFAULTS_FILE="$HOME/.colcon/defaults.yaml"
 
+if [ ! -e /tmp/cycloneDDS_configured ]; then
+        sudo sysctl -w net.core.rmem_max=2147483647
+        sudo ip link set lo multicast on
+        touch /tmp/cycloneDDS_configured
+fi
+
 function update_autoware () {
 	cd ~/workspace/autoware
 	git pull
